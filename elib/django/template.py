@@ -27,11 +27,12 @@ class HtmlMinifyMiddleware(object):
             raise ImportError('css_html_js_minify not found.')
 
         self.get_response = get_response
+        self.enabled = getattr(settings, 'HTML_MINIFY', False)
 
     def __call__(self, request):
         #
         response = self.get_response(request)
-        if not isinstance(response, HttpResponse):
+        if (not self.enabled) or (not isinstance(response, HttpResponse)):
             return response
 
         content_type = response.get('Content-Type')
