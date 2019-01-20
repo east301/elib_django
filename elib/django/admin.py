@@ -39,6 +39,14 @@ def order_field(field):
     return apply
 
 
+def boolean_type():
+    def apply(func):
+        func.boolean = True
+        return func
+
+    return func
+
+
 # ================================================================================
 # OTP
 # ================================================================================
