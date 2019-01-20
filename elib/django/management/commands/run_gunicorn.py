@@ -5,6 +5,8 @@
 # https://opensource.org/licenses/Apache-2.0
 #
 
+import os
+
 from django.core.management import BaseCommand
 from gunicorn.app.base import BaseApplication
 
@@ -15,8 +17,14 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('-b', '--bind', default='127.0.0.1:8000')
         parser.add_argument('-w', '--workers', type=int, default=1)
+        parser.add_argument('-s', '--script-name')
 
     def handle(self, *args, **kwargs):
+        #
+        if kwargs.get('script_name'):
+            os.environ['SCRIPT_NAME'] = args.script_name
+
+        #
         DjangoApplication(kwargs['bind'], kwargs['workers']).run()
 
 
