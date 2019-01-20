@@ -14,7 +14,7 @@ from django.http import HttpResponse
 try:
     from css_html_js_minify import html_minify
 except ImportError:
-    css_html_js_minify = None
+    html_minify = None
 
 
 # ================================================================================
@@ -23,7 +23,7 @@ except ImportError:
 
 class HtmlMinifyMiddleware(object):
     def __init__(self, get_response):
-        if css_html_js_minify is None:
+        if html_minify is None:
             raise ImportError('css_html_js_minify not found.')
 
         self.get_response = get_response
