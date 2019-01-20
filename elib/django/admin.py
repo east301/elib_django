@@ -39,11 +39,8 @@ def order_field(field):
     return apply
 
 
-def boolean_type():
-    def apply(func):
-        func.boolean = True
-        return func
-
+def boolean_type(func):
+    func.boolean = True
     return func
 
 
