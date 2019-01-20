@@ -5,8 +5,14 @@
 # https://opensource.org/licenses/Apache-2.0
 #
 
+import os
+
 from django.contrib import admin
 
+
+# ================================================================================
+# model admin
+# ================================================================================
 
 def reregister_model_admin(model):
     def apply(model_admin):
@@ -31,3 +37,17 @@ def order_field(field):
         return func
 
     return apply
+
+
+# ================================================================================
+# OTP
+# ================================================================================
+
+def enable_django_admin_otp(envvar='DISABLE_OTP'):
+    if envvar in os.environ:
+        value = os.environ[envvar]
+        if value.isdigit() and bool(int(value)):
+            return
+
+    from django_otp.admin import OTPAdminSite
+    admin.site.__class__ = OTPAdminSite
