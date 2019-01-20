@@ -23,3 +23,11 @@ def short_description(description):
         return func
 
     return apply
+
+
+def order_field(field):
+    def apply(func):
+        func.admin_order_field = field
+        return func
+
+    return apply
