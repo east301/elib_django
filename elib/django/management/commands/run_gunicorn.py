@@ -22,7 +22,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         #
         if kwargs.get('script_name'):
-            os.environ['SCRIPT_NAME'] = args.script_name
+            os.environ['SCRIPT_NAME'] = kwargs['script_name']
 
         #
         DjangoApplication(kwargs['bind'], kwargs['workers']).run()
